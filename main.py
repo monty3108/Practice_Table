@@ -4,6 +4,7 @@
 import individual_table_practice as t1
 import random_table as t2
 import sq_cu as t3
+import alternate_numbers as t4
 from gen_func import input_digit, clear_console
 
 while True:
@@ -15,6 +16,7 @@ while True:
           "   3: Practice random tables\n"
           "   4: Practice random squares\n"
           "   5: Practice random cubes\n"
+          "   6: Alternate Multiplication \n"
           "   0: Quit table practice")
 
     select_option = input_digit('   Enter your option: ')
@@ -28,6 +30,8 @@ while True:
         t3.practice_sq() 
     elif select_option == 5:
         t3.practice_cube() 
+    elif select_option == 6:
+        t4.multiplication_practice() 
         
     else:
         break
