@@ -5,20 +5,128 @@
             "time": 21.58
         },
         {
+            "date": "28-Sep-2026 12:22 PM",
+            "time": 23.97
+        },
+        {
             "date": "25-Aug-2026 03:17 PM",
             "time": 27.26
+        },
+        {
+            "date": "28-Sep-2026 12:23 PM",
+            "time": 29.71
         }
     ],
     "Addition_2Digit_10Qs": [
         {
+            "date": "27-Aug-2026 07:14 PM",
+            "time": 37.54
+        },
+        {
             "date": "25-Aug-2026 03:19 PM",
             "time": 51.44
+        },
+        {
+            "date": "28-Aug-2026 07:20 AM",
+            "time": 60.07
         }
     ],
     "Cubes_11_to_15": [
         {
+            "date": "27-Aug-2026 07:20 PM",
+            "time": 55.09
+        },
+        {
             "date": "25-Aug-2026 03:22 PM",
             "time": 56.5
+        },
+        {
+            "date": "28-Aug-2026 07:14 AM",
+            "time": 56.93
+        },
+        {
+            "date": "27-Aug-2026 07:19 PM",
+            "time": 61.43
+        }
+    ],
+    "Squares_26_to_30": [
+        {
+            "date": "26-Aug-2026 07:16 PM",
+            "time": 27.96
+        },
+        {
+            "date": "26-Aug-2026 07:15 PM",
+            "time": 39.0
+        }
+    ],
+    "Squares_21_to_30": [
+        {
+            "date": "27-Aug-2026 07:13 PM",
+            "time": 76.38
+        }
+    ],
+    "Squares_11_to_30": [
+        {
+            "date": "28-Aug-2026 07:18 AM",
+            "time": 197.02
+        },
+        {
+            "date": "15-Sep-2026 12:56 PM",
+            "time": 630.39
+        }
+    ],
+    "Squares_12_to_30": [
+        {
+            "date": "31-Aug-2026 05:24 PM",
+            "time": 134.05
+        }
+    ],
+    "Squares_31_to_35": [
+        {
+            "date": "10-Sep-2026 11:57 PM",
+            "time": 138.13
+        }
+    ],
+    "Tables_16_to_19": [
+        {
+            "date": "15-Sep-2026 12:45 PM",
+            "time": 1063.87
+        }
+    ],
+    "Tables_12_to_19": [
+        {
+            "date": "18-Sep-2026 06:47 PM",
+            "time": 2157.12
+        }
+    ],
+    "Tables_16_to_17_1reps": [
+        {
+            "date": "28-Sep-2026 12:19 PM",
+            "time": 78.11
+        }
+    ],
+    "Squares_26_to_29_1reps": [
+        {
+            "date": "28-Sep-2026 12:20 PM",
+            "time": 19.58
+        }
+    ],
+    "Cubes_11_to_15_2reps": [
+        {
+            "date": "28-Sep-2026 12:21 PM",
+            "time": 30.15
+        }
+    ],
+    "SquareRoot_2Digits_5Qs": [
+        {
+            "date": "28-Sep-2026 12:33 PM",
+            "time": 12.26
+        }
+    ],
+    "Squares_31_to_35_1reps": [
+        {
+            "date": "28-Sep-2026 12:36 PM",
+            "time": 136.51
         }
     ]
 }
