@@ -125,8 +125,94 @@
     ],
     "Squares_31_to_35_1reps": [
         {
+            "date": "30-Sep-2026 02:44 PM",
+            "time": 76.81
+        },
+        {
             "date": "28-Sep-2026 12:36 PM",
             "time": 136.51
+        }
+    ],
+    "Tables_15_to_19_1reps": [
+        {
+            "date": "28-Sep-2026 12:54 PM",
+            "time": 134.7
+        }
+    ],
+    "SquareRoot_3Digits_10Qs": [
+        {
+            "date": "28-Sep-2026 01:02 PM",
+            "time": 37.86
+        }
+    ],
+    "SquareRoot_3Digits_20Qs": [
+        {
+            "date": "29-Sep-2026 12:41 AM",
+            "time": 48.88
+        },
+        {
+            "date": "28-Sep-2026 01:04 PM",
+            "time": 92.82
+        }
+    ],
+    "SquareRoot_4Digits_5Qs": [
+        {
+            "date": "28-Sep-2026 01:06 PM",
+            "time": 70.74
+        }
+    ],
+    "Tables_2_to_5_1reps": [
+        {
+            "date": "28-Sep-2026 08:23 PM",
+            "time": 465.79
+        }
+    ],
+    "Squares_2_to_30_2reps": [
+        {
+            "date": "28-Sep-2026 09:25 PM",
+            "time": 568.22
+        }
+    ],
+    "Tables_12_to_19_1reps": [
+        {
+            "date": "30-Sep-2026 01:29 AM",
+            "time": 182.96
+        },
+        {
+            "date": "30-Sep-2026 02:42 PM",
+            "time": 198.56
+        },
+        {
+            "date": "29-Sep-2026 12:40 AM",
+            "time": 213.33
+        }
+    ],
+    "Squares_22_to_29_1reps": [
+        {
+            "date": "29-Sep-2026 12:49 AM",
+            "time": 42.74
+        }
+    ],
+    "SquareRoot_3Digits_Practice": [
+        {
+            "date": "29-Sep-2026 12:51 AM",
+            "time": 77.01
+        }
+    ],
+    "Cubes_2_to_15_1reps": [
+        {
+            "date": "30-Sep-2026 01:31 AM",
+            "time": 40.13
+        }
+    ],
+    "Squares_11_to_30_1reps": [
+        {
+            "date": "30-Sep-2026 02:43 PM",
+            "time": 41.21
+        },
+        {
+            "date": "30-Sep-2026 01:32 AM",
+            "time": 48.79
         }
     ]
 }

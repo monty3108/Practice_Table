@@ -4,11 +4,11 @@ import random
 import json
 import math
 from datetime import datetime
+import fraction
 
 # Note: alternate_numbers import is commented out to ensure the script runs standalone. 
 # Uncomment it if you have the 'alternate_numbers.py' file in the same folder.
 # import alternate_numbers as an
-# import fraction
 
 RECORDS_FILE = "math_records.json"
 
@@ -117,10 +117,8 @@ def practice_logic(mode, start=None, end=None, count=None, reps=3, digits=None):
     practice_items = []
     counts = {}
     min_val, max_val = 10, 99 
-    available_roots = []
-    is_random_mode = False
-    total_unique = 0
     
+    # 1. Setup specific configurations based on the chosen mode
     if mode == 1:
         category = f"Tables_{start}_to_{end}_{reps}reps"
         for n in range(start, end + 1):
@@ -156,22 +154,19 @@ def practice_logic(mode, start=None, end=None, count=None, reps=3, digits=None):
         title = "2-Digit Multiplication Practice"
         
     elif mode == 7:
-        category = f"SquareRoot_{digits}Digits_Practice"
+        category = f"SquareRoot_{digits}Digits_{count}Qs"
         title = f"Square Root Practice ({digits}-Digit Perfect Squares)"
+        # Calculate root boundaries for the specific number of digits of the perfect square
         min_sq = 10**(digits - 1) if digits > 1 else 0
         max_sq = (10**digits) - 1
         min_val = math.ceil(math.sqrt(min_sq))
         max_val = math.floor(math.sqrt(max_sq))
+        # Edge case safeguard
         if min_val > max_val: min_val, max_val = 1, 3
-        
-        # Pre-generate all unique numbers and shuffle them
-        available_roots = list(range(min_val, max_val + 1))
-        random.shuffle(available_roots)
-        total_unique = len(available_roots)
-        is_random_mode = False
 
     clear_console(title)
     
+    # Load adaptive bounds for Arithmetic modes
     if mode in [4, 5, 6]:
         min_val, max_val = get_adaptive_bounds(category, count)
         
@@ -181,6 +176,7 @@ def practice_logic(mode, start=None, end=None, count=None, reps=3, digits=None):
     completed = False
     questions_done = 0
 
+    # 2. Main Question Loop
     while True:
         if mode in [1, 2, 3]:
             available_items = [item for item, c in counts.items() if c < reps]
@@ -194,60 +190,39 @@ def practice_logic(mode, start=None, end=None, count=None, reps=3, digits=None):
             if mode == 1:
                 multiplier = current_item[1]
                 correct_ans = num * multiplier
-                prompt = f"\n   {Colors.CYAN}{num} x {multiplier} = {Colors.RESET}"
+                prompt = f"   {Colors.CYAN}{num} x {multiplier} = {Colors.RESET}"
             elif mode == 2:
                 correct_ans = num ** 2
-                prompt = f"\n   {Colors.CYAN}{num}² = {Colors.RESET}"
+                prompt = f"   {Colors.CYAN}{num}² = {Colors.RESET}"
             else:
                 correct_ans = num ** 3
-                prompt = f"\n   {Colors.CYAN}{num}³ = {Colors.RESET}"
+                prompt = f"   {Colors.CYAN}{num}³ = {Colors.RESET}"
         
-        else: 
-            if mode != 7 and questions_done >= count:
+        else: # Modes 4, 5, 6 (Arithmetic) and 7 (Roots)
+            if questions_done >= count:
                 completed = True
                 break
             
             if mode == 7:
-                if not is_random_mode and not available_roots:
-                    end_time = time.time()
-                    time_taken = end_time - start_time
-                    print(f"\n   {Colors.GREEN}{Colors.BOLD}🏆 Unique Set Completed in {time_taken:.2f} seconds!{Colors.RESET}")
-                    top_records = save_record(category, time_taken)
-                    
-                    print(f"\n   {Colors.BLUE}--- Top 5 Records for '{category}' ---{Colors.RESET}")
-                    for i, rec in enumerate(top_records, 1):
-                        print(f"   {Colors.BOLD}{i}.{Colors.RESET} Date: {rec['date']} | Time: {Colors.YELLOW}{rec['time']}s{Colors.RESET}")
-                    
-                    ans = input(f"\n   {Colors.BOLD}Continue with random repeated numbers? (y/n/q): {Colors.RESET}").strip().lower()
-                    if ans in ['y', 'yes']:
-                        is_random_mode = True
-                    else:
-                        print(f"\n   {Colors.YELLOW}Returning to menu...{Colors.RESET}")
-                        time.sleep(2)
-                        return 
-                
-                if not is_random_mode:
-                    correct_ans = available_roots.pop()
-                else:
-                    correct_ans = random.randint(min_val, max_val)
-                    
+                correct_ans = random.randint(min_val, max_val)
                 perfect_square = correct_ans ** 2
-                prompt = f"\n   {Colors.CYAN}√{perfect_square} = {Colors.RESET}"
+                prompt = f"   {Colors.CYAN}√{perfect_square} = {Colors.RESET}"
             else:
                 n1 = random.randint(min_val, max_val)
                 n2 = random.randint(min_val, max_val)
                 
                 if mode == 4:
                     correct_ans = n1 + n2
-                    prompt = f"\n   {Colors.CYAN}{n1} + {n2} = {Colors.RESET}"
+                    prompt = f"   {Colors.CYAN}{n1} + {n2} = {Colors.RESET}"
                 elif mode == 5:
                     if n1 < n2: n1, n2 = n2, n1 
                     correct_ans = n1 - n2
-                    prompt = f"\n   {Colors.CYAN}{n1} - {n2} = {Colors.RESET}"
+                    prompt = f"   {Colors.CYAN}{n1} - {n2} = {Colors.RESET}"
                 elif mode == 6:
                     correct_ans = n1 * n2
-                    prompt = f"\n   {Colors.CYAN}{n1} x {n2} = {Colors.RESET}"
+                    prompt = f"   {Colors.CYAN}{n1} x {n2} = {Colors.RESET}"
 
+        # 3. Process User Input
         user_ans = input_digit(prompt)
 
         if user_ans == "QUIT":
@@ -258,12 +233,6 @@ def practice_logic(mode, start=None, end=None, count=None, reps=3, digits=None):
             if mode in [1, 2, 3]:
                 counts[current_item] += 1
                 print(f"   {Colors.GREEN}✅ Correct!{Colors.RESET} (Progress: {counts[current_item]}/{reps}) Score: {score}")
-            elif mode == 7 and not is_random_mode:
-                questions_done += 1
-                print(f"   {Colors.GREEN}✅ Correct!{Colors.RESET} (Progress: {questions_done}/{total_unique}) Score: {score}")
-            elif mode == 7 and is_random_mode:
-                questions_done += 1
-                print(f"   {Colors.GREEN}✅ Correct!{Colors.RESET} (Random Mode) Score: {score}")
             else:
                 questions_done += 1
                 print(f"   {Colors.GREEN}✅ Correct!{Colors.RESET} (Progress: {questions_done}/{count}) Score: {score}")
@@ -275,23 +244,23 @@ def practice_logic(mode, start=None, end=None, count=None, reps=3, digits=None):
             print(f"\n   {Colors.RED}{Colors.BOLD}Too many mistakes! Let's review and try again.{Colors.RESET}")
             break
 
-    if mode != 7 or (mode == 7 and not is_random_mode and not completed):
-        end_time = time.time()
-        time_taken = end_time - start_time
+    # 4. Handle Session End & Record Keeping
+    end_time = time.time()
+    time_taken = end_time - start_time
 
-        if completed:
-            print(f"\n   {Colors.GREEN}{Colors.BOLD}🏆 Goal Reached! Set completed in {time_taken:.2f} seconds.{Colors.RESET}")
+    if completed:
+        print(f"\n   {Colors.GREEN}{Colors.BOLD}🏆 Goal Reached! Set completed in {time_taken:.2f} seconds.{Colors.RESET}")
+        
+        top_records = save_record(category, time_taken)
+        
+        print(f"\n   {Colors.BLUE}--- Top 5 Records for '{category}' ---{Colors.RESET}")
+        for i, rec in enumerate(top_records, 1):
+            print(f"   {Colors.BOLD}{i}.{Colors.RESET} Date: {rec['date']} | Time: {Colors.YELLOW}{rec['time']}s{Colors.RESET}")
             
-            top_records = save_record(category, time_taken)
-            
-            print(f"\n   {Colors.BLUE}--- Top 5 Records for '{category}' ---{Colors.RESET}")
-            for i, rec in enumerate(top_records, 1):
-                print(f"   {Colors.BOLD}{i}.{Colors.RESET} Date: {rec['date']} | Time: {Colors.YELLOW}{rec['time']}s{Colors.RESET}")
-                
-            input(f"\n   {Colors.BOLD}Press Enter to return to menu...{Colors.RESET}")
-        else:
-            print(f"\n   {Colors.YELLOW}Practice stopped. Final Score: {score}. Returning to menu...{Colors.RESET}")
-            time.sleep(3)
+        input(f"\n   {Colors.BOLD}Press Enter to return to menu...{Colors.RESET}")
+    else:
+        print(f"\n   {Colors.YELLOW}Practice stopped. Final Score: {score}. Returning to menu...{Colors.RESET}")
+        time.sleep(3)
 
 def write_table():
     """Generates and prints a complete specific multiplication table."""
@@ -333,9 +302,8 @@ def main():
                 
         elif choice == 9:
             try:
-                import fraction
                 fraction.run_quiz()
-            except ImportError:
+            except NameError:
                 print(f"   {Colors.RED}❌ 'fraction' module not loaded. Please check your files.{Colors.RESET}")
                 time.sleep(2)
                 
@@ -361,6 +329,7 @@ def main():
                 time.sleep(2)
                 continue
             
+            # Map menu choice to logic mode
             mode = 1 if choice == 1 else (2 if choice == 3 else 3)
             practice_logic(mode, start=start, end=end, reps=reps)
             
@@ -373,6 +342,7 @@ def main():
                 time.sleep(2)
                 continue
             
+            # Map menu choice to logic mode
             mode = 4 if choice == 5 else (5 if choice == 6 else 6)
             practice_logic(mode, count=count)
 
@@ -385,8 +355,15 @@ def main():
                 time.sleep(2)
                 continue
                 
-            # Removed the question target count here so it defaults to testing all unique roots first
-            practice_logic(mode=7, digits=digits)
+            count = input_digit(f"   {Colors.YELLOW}How many questions in this set? {Colors.RESET}")
+            if count == "QUIT": continue
+            
+            if count <= 0:
+                print(f"   {Colors.RED}Error: You must practice at least 1 question.{Colors.RESET}")
+                time.sleep(2)
+                continue
+            
+            practice_logic(mode=7, digits=digits, count=count)
 
         else:
             print(f"   {Colors.RED}Invalid selection.{Colors.RESET}")
